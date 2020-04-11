@@ -1,0 +1,45 @@
+# Program: Elemnt_Quiz
+# Create get_names() Function to collect input of 5 unique element names
+def get_names(): # defines a function with no arguments
+    input_list = [] # defines a list to hold the input
+    
+    while len(input_list) <5: # creates a loop while the length of the input list is less than 5
+        quiz_input = input("Enter the name of an element: ").lower() # collects input of an element name in lower case
+        if quiz_input == "": # sets a condition if input is an empty string
+            print("Enter an element")
+        elif quiz_input in input_list: # sets a condition if input is already in the list
+            print(quiz_input, "already entered. Try again.")
+        else:
+            input_list.append(quiz_input) # appends the input to the list
+    print(input_list,"\n")
+    return input_list #  returns a list of 5 input strings (element names)
+
+# Create the Program flow
+!curl https://raw.githubusercontent.com/MicrosoftLearning/intropython/master/elements1_20.txt -o elements1_20.txt
+elements_file = open('elements1_20.txt','r') # opens the file with the first 20 elements
+elements_file.seek(0) # sets the poninter to index 0 at the beginning of the file
+
+
+elements_list = [] # creates an empty list
+
+ 
+for items in range(1,20):  # iterates through a range 1-20 in a list 
+    elements = elements_file.readline().strip().lower() # reads each line in the file as a list in lower case; strips the "\n" and whitespaces
+    elements_list.append(elements) # appends each newly formated element to the new elements_list
+
+print("List any 5 of the fiest 20 elements in the Periodic Table.")
+quiz_list = get_names() # creates a new list to call the function get_names
+
+# calculate the % correct
+correct_list = []
+incorrect_list = []
+
+for item in quiz_list:
+    if item in elements_list:
+        correct_list.append(item)
+    else:
+        incorrect_list.append(item)
+correct_perct = int(len(correct_list)*20)
+print(correct_perct,"%"," correct")
+print("Found: ",(" ".join(correct_list)).title())
+print("Not Found: ", (" ".join(incorrect_list)).title())
